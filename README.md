@@ -1,12 +1,12 @@
-# 🎵 Syncora — Mood Intelligence Music Platform
+# 🎵 Syncora — Intelligent Music & Mood Platform
 
-A full-stack music app with mood tracking, encrypted journal, Spotify integration, analytics, and a cinematic UI.
+A full-stack, state-of-the-art music platform featuring mood-based recommendations, true End-to-End Encrypted (E2EE) journaling, predictive ML analytics, and a vibrant glassmorphic cinematic UI.
 
 ---
 
 ## 🚀 Quick Start (2 steps)
 
-### Step 1 — Backend
+### Step 1 — Backend API
 
 ```bash
 cd backend
@@ -15,92 +15,64 @@ copy .env.example .env     # Windows
 # cp .env.example .env     # Mac/Linux
 ```
 
-Edit `backend/.env` — set your MongoDB URI at minimum:
+Edit `backend/.env` — set your MongoDB URI:
 ```
 MONGODB_URI=mongodb://127.0.0.1:27017/syncora
-JWT_SECRET=any_long_random_string
-SPOTIFY_CLIENT_ID=    (optional — demo tracks work without it)
-SPOTIFY_CLIENT_SECRET=(optional)
+JWT_SECRET=your_secure_secret_here
+PORT=5001
 ```
 
 ```bash
 npm run dev
 ```
+The API is fully free and powered by the **Apple iTunes Search API**. No keys are required!
 
-Open **http://localhost:5000** ✅
-
-### Step 2 (dev mode only — optional hot reload)
+### Step 2 — Frontend GUI
 
 ```bash
 cd frontend
 npm install
 npm run dev
-# Open http://localhost:5173
 ```
+Open **http://localhost:5174** to interact with the platform! ✅
 
 ---
 
-## 🎨 Also Included
-
-**`syncora_standalone_preview.html`** — Open this HTML file directly in any browser to see the full cinematic UI instantly, no server needed. Great for demos.
-
----
-
-## ✨ Features
+## ✨ Cutting-Edge Features
 
 | Feature | Description |
 |---|---|
-| 🔐 Auth | JWT login/register with bcrypt |
-| 🎭 Mood tracking | 6 moods, logged to MongoDB |
-| 🎵 Music player | Real audio playback with 30s previews |
-| 🔍 Search | Live search with Spotify API |
-| 📋 Playlists | Create, manage, add/remove tracks |
-| ❤️ Liked songs | Heart any track |
-| ⏱ History | Recently played tracks |
-| 📓 Journal | Encrypted notes (AES) with mood tags |
-| 📊 Analytics | 7-day trend chart, mood distribution, AI insights |
-| 👤 Profile | Personal info, analytics summary, Premium upgrade |
-| 🎨 UI | Cinematic dark theme, Framer Motion, animated player bar |
-| 🧭 Nav | Top header nav + sidebar, profile dropdown, user menu |
+| 🎵 **Global Search** | Unlimited, free API integration utilizing Apple iTunes instead of Spotify to offer millions of high-quality `.m4a` music previews. |
+| 📓 **The Vault (E2EE)** | Military-grade AES encrypted journaling. Encryption keys are processed entirely client-side guaranteeing zero-knowledge server storage. |
+| 📊 **Advanced Analytics** | Real-time `recharts` data visualizations predicting your future mood trends using statistical ML distribution algorithms. |
+| 🎨 **Cinematic UI** | Floating dynamic orbs, translucent glass UI elements, and meticulously crafted Framer Motion animations across all routing transitions. |
+| 📋 **User Playlists** | Fully unrestricted drag/drop/delete playlist creation system utilizing MongoDB database reference arrays. |
+| ❤️ **Fully Playable Library** | Cached `previewUrl` data allows your History and Liked songs to stream seamlessly inside your personalized library. |
 
 ---
 
-## 🗂 Structure
+## 🗂 Project Architecture
 
 ```
 syncora/
-├── backend/              Node.js + Express API
+├── backend/              Express API & MongoDB Schemas
 │   ├── models/           User, Playlist, Mood
 │   ├── routes/           auth, music, playlists, moods
-│   ├── middleware/       JWT auth
-│   ├── public/           Built React app (served here)
-│   └── server.js
+│   └── server.js         API Entry (Port 5001)
 │
-├── frontend/             React 18 + Vite
+├── frontend/             Vite + React
 │   ├── src/
-│   │   ├── components/   Layout (with player+nav), TrackRow, AlbumCard
-│   │   ├── context/      Auth, Player
-│   │   ├── pages/        Home, Search, Analytics, Profile, Playlist...
-│   │   ├── services/     api.js (axios)
-│   │   └── utils/        helpers.js
-│   └── dist/             Built output
-│
-└── syncora_standalone_preview.html   Open in browser — no server needed
+│   │   ├── components/   TrackRows, Dynamic Layouts
+│   │   ├── context/      React Context (Auth, Player)
+│   │   └── pages/        Routing endpoints (Analytics, Liked, Journal)
 ```
 
 ---
 
-## 🎵 Spotify Setup
+## 🔒 Security Posture
 
-1. Go to https://developer.spotify.com/dashboard
-2. Create app → copy Client ID & Secret
-3. Add to `backend/.env`
-4. Restart server
+### E2EE Journal Notes
+Journal entries use AES encryption via `crypto-js`. The master password resides entirely in React's memory space and is never transmitted over HTTP. **By design**, if you lose your vault password, your journal entries are permanently unrecoverable. 
 
-Without Spotify: demo tracks still load and player works.
-
----
-
-## 🔒 Encryption
-
-Journal notes use AES encryption client-side (CryptoJS). Password never stored — losing it means losing the note. Intentional by design.
+### Free Open API Migration
+Syncora explicitly bypassed Spotify's controversial "Premium Developer" restrictions by hot-swapping the entire music core to the public iTunes GraphQL/Search endpoints, unlocking the system for free users permanently.
